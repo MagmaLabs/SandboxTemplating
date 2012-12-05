@@ -1,0 +1,5 @@
+To contribute, run the tests in a blank virtualenv:
+
+    pip install pytest
+    pip install -e .
+    py.test
