@@ -40,7 +40,7 @@ def test_escaping():
 		'''<img src="images/{{ file }}.png" width='{{ width }}'>''',
 		file='">lol',
 		width="'>lol"
-	) == '''<img src="images/&quot;&gt;lol.png" width='&#39;&gt;lol'>'''
+	) == '''<img src="images/&#34;&gt;lol.png" width='&#39;&gt;lol'>'''
 	
 	assert toHTML(
 		'<td>{{ a }}</td>',
@@ -81,7 +81,7 @@ def test_indexing():
 
 
 def test_strings():
-	assert toHTML('''{{ '"' + "'" }}''') == '&quot;&#39;'
+	assert toHTML('''{{ '"' + "'" }}''') == '&#34;&#39;'
 	assert toHTML('{{ "}}" }}') == '}}'
 	assert toHTML(u'{{ "\u2020" }}') == u'\u2020'
 
