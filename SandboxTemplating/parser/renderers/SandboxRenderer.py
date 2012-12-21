@@ -153,7 +153,7 @@ class SandboxRenderer(Visitor):
 			self.env.tags[node.name]( self.writer, self.context, *args, **kwargs )
 			return
 		
-		self.writer.write( Markup('Tag \'%s\' called with arguments %s<br><br>\n\n') % (escape(node.name), escape(repr([a.__json__( ) for a in node.arguments])) ) )
+		self.writer.write( Markup('Unexpected tag \'%s\'') % (escape(node.name),) )
 	
 	def visitIfBlock( self, node ):
 		condition = self._contextUnwrap( node.condition.accept( self ) )
