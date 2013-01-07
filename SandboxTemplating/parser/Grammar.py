@@ -141,8 +141,16 @@ def makeTag( tagDefinition ):
 	
 	return TagNode( tagName, tagPositionalArgs, tagKeywordArgs )
 
+def wrapInfix( args ):
+	# When an infix expression matches only one value, it passes through the whole
+	# expression without enclosing it. This function encloses it in a list anyway,
+	# since we expect a list of arguments in all cases.
+	if not isinstance(args, list):
+		args = [args]
+	return args
+
 KeywordExpression = (-(Identifier + Except(Literal('='),Literal('=='))) + Expression)
-TagParamters = InfixExpr( KeywordExpression, [(',', reduceParameters)] )
+TagParamters = InfixExpr( KeywordExpression, [(',', reduceParameters)] )[wrapInfix]
 Tag = Exact( TagStart + Identifier + -TagParamters + TagEnd, space_parser=Whitespace( ) )[makeTag]
 
 ItemList = +( Exact(Markup(name="markup")) | VariableOutput | Tag )
